@@ -143,7 +143,30 @@ dice_game_15 <- function(name1, name2){
 dice_game_15("Brenda", "Evelyn")
 
 ```
+```{r}
+dice_game_15_v2 <- function(name1, name2){
+  # roll the dice 15 times for each player
+  n1 <- replicate(15, die_roll())
+  n2 <- replicate(15, die_roll())
+  
+  # compare wins
+  p1_wins = n1>n2
+  p2_wins = n1<n2
+  
+  # display winner
+  if(sum(p1_wins)>sum(p2_wins)){
+    paste(name1, "wins!")
+  }else if(sum(p1_wins)<sum(p2_wins)){
+    paste(name2, "wins!")
+  }else{
+    return("Draw!")
+  }
+}
 
+
+# play game
+dice_game_15_v2("Brenda", "Evelyn")
+```
 
 3. Modify your function from (2) so that the person in the first argument has a die that is weighted to get higher numbers more often (you may decide the actual percentage change). Run the function ten or so times. Does the second person ever win?
 
