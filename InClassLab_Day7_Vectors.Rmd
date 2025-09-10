@@ -170,7 +170,37 @@ dice_game_15_v2("Brenda", "Evelyn")
 
 3. Modify your function from (2) so that the person in the first argument has a die that is weighted to get higher numbers more often (you may decide the actual percentage change). Run the function ten or so times. Does the second person ever win?
 
-```{r}
+```{r cheating-dice}
 # Your "cheating" function goes here
+cheating_die_roll <- function(){
+  die_rolls <- 1:6
+  die_probs <- c(rep(.1,4), .7, .7)
+  sample(die_rolls, 1, replace = T, prob = die_probs)
+}
+
+cheating_die_roll()
 ```
+```{r cheating-game}
+rigged_dice_game <- function(name1, name2){
+  # roll the dice 15 times for each player
+  n1 <- replicate(15, cheating_die_roll())
+  n2 <- replicate(15, die_roll())
+  
+  # compare wins
+  p1_wins = n1>n2
+  p2_wins = n1<n2
+  
+  # display winner
+  if(sum(p1_wins)>sum(p2_wins)){
+    paste(name1, "wins!")
+  }else if(sum(p1_wins)<sum(p2_wins)){
+    paste(name2, "wins!")
+  }else{
+    return("Draw!")
+  }
+}
+
+rigged_dice_game("Brenda", "Evelyn")
+```
+
 
