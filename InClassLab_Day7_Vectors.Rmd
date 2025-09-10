@@ -1,6 +1,6 @@
 ---
 title: "In Class Lab"
-author: "Dr. Shoemaker"
+author: "Brenda Luis"
 date: "DATA 2401"
 output: html_document
 ---
@@ -19,6 +19,15 @@ knitr::opts_chunk$set(echo = TRUE)
 3. Add 1 to each element in `n` and print the result
 4. Create a vector `m` that contains the numbers 10 to 1 (in that order), in two different ways, neither of which is just typing "10, 9 , 8 ...".  Hint: use one of the helper functions we learned.
 5. Subtract `m` FROM `n`. Note the recycling!
+
+```{r}
+n <- 10:49
+length(n)
+(n + 1)
+m <- 10:1
+n - m
+
+```
 
 ### Set 2 
 
@@ -44,7 +53,12 @@ knitr::opts_chunk$set(echo = TRUE)
 1. Write a function to simulate rolling a 6-sided die and returns the result.
 
 ```{r}
+die_roll <- function(){
+  die_rolls <- 1:6
+  sample(die_rolls, 1, replace = TRUE)
+}
 
+die_roll()
 ```
 
 
@@ -52,7 +66,13 @@ knitr::opts_chunk$set(echo = TRUE)
 1. Write a function to simulate rolling 2 6-sided dice that returns the sum of the rolls. 
 
 ```{r}
+roll_2_dice <- function(){
+  dice_rolls <- 1:6
+  rolls <- c(sample(dice_rolls, 2, replace = TRUE))
+  sum(rolls)
+}
 
+roll_2_dice()
 
 ```
 
@@ -62,13 +82,65 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 # Your one-roll function goes here
 
+dice_comp <- function(name1, name2){
+  n1 <- die_roll()
+  n2 <- die_roll()
+  
+  if(n1==n2){
+    n1 <- die_roll()
+    n2 <- die_roll()
+  }
+  
+  if(n1==n2){
+    return("DRAW")
+  }else if(n1 > n2){
+    paste(name1, "wins!")
+  }else{
+    paste(name2, "wins!")
+  }
+}
+
+dice_comp("Brenda", "Evelyn")
+
 ```
 
 
 2. Write a second function (you may start by modifying the first one) that takes two names as strings, simulates both of them rolling die 15 times, and returns the name of the person who "won" more rolls. Don't reroll ties this time, but don't count them as "wins". 
 
 ```{r}
+# https://psyteachr.github.io/msc-data-skills/func.html
+# replicate function info
 
+dice_game_15 <- function(name1, name2){
+  # roll the dice 15 times for each player
+  n1 <- replicate(15, die_roll())
+  n2 <- replicate(15, die_roll())
+  
+  # store number of wins 
+  p1_wins = 0
+  p2_wins = 0
+  
+  # compare each value for wins
+  for(i in 1:15){
+    if(n1[i]>n2[i]){
+      p1_wins = p1_wins + 1
+    }else if(n1[i]<n2[i]){
+      p2_wins = p2_wins + 1
+    }
+  }
+  
+  # display winner
+  if(p1_wins>p2_wins){
+    paste(name1, "wins!")
+  }else if (p1_wins<p2_wins){
+    paste(name2, "wins!")
+  }else{
+    return("DRAW")
+  }
+}
+
+# play game
+dice_game_15("Brenda", "Evelyn")
 
 ```
 
