@@ -8,6 +8,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
 ```
 
 ## In Class Exercises
@@ -37,6 +38,19 @@ n - m
      + the x vector goes in the first argument, the y vector goes in the second argument
      + You'll need to add the argument `type = "l"` for a line. NOTE: That is a lower case "L", not a 1. 
 
+```{r}
+x_range <- seq(-5, 10, by=0.1)
+x_range
+
+sin_wave <- sin(x_range)
+sin_wave
+
+plot(x_range, sin_wave, type = 'l')
+
+ggplot(data = data.frame(x_range, sin_wave), aes(x = x_range, y = sin_wave)) + geom_step()
+
+ggplot(data = data.frame(x_range, sin_wave), aes(x = x_range, y = sin_wave)) + geom_line()
+```
 
 ### Set 3 
 
@@ -47,6 +61,27 @@ n - m
 5. Use indexing to access the 5th to the 8th numbers in your combined vector
 6. Use indexing to create a new vector that contains the first 3 elements and last 3 elements of your combined vector. 
 7. Bonus/extra: do the above in a way that would work no matter how long the vector is (as long as it's longer than 2 elements)
+
+```{r}
+first_nums <- 40:50
+next_nums <- seq(51,60)
+all_nums <- c(first_nums, next_nums)
+all_nums
+
+all_nums[7]
+
+all_nums[5:8]
+
+last_index <- length(all_nums)
+last_index
+
+# testing getting last 3 elements
+all_nums[(last_index-2):last_index]
+
+# new vector with both first three elements and last three elements
+nums_selection <- c(all_nums[1:3], all_nums[(last_index-2):last_index])
+nums_selection
+```
 
 ## In Class Activity
 
